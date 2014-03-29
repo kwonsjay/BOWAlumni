@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3-n5xWbxjd4xCjTtViyzGLpbzrO8rFzU&sensor=false&libraries=visualization">
+  </script>
+  <title>BOW Alum</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  
+<div id="map-canvas"></div>
+
+<%= yield %>
+
+</body>
+</html>
