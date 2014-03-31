@@ -1,14 +1,19 @@
-Bowalum.Views.AddView = Backbone.View.extend({
+Bowalum.Views.EditView = Backbone.View.extend({
   
-  template: JST["global/add"],
-  
-  events: {
-    "submit form": "addAlumnus"
+  initialize: function() {
+    // console.log(this.model);
   },
   
-  addAlumnus: function(event) {
+  template: JST["global/edit"],
+  
+  events: {
+    "submit form": "editAlumnus"
+  },
+  
+  editAlumnus: function(event) {
     event.preventDefault();
-    this.$("button[name=add]").prop("diabled", true);
+    var that = this;
+    this.$("button[name=edit]").prop("diabled", true);
     var token = $('meta[name="csrf-token"]').attr('content');
     var address = this.$("input[name=city]").val() + ", " + this.$("input[name=state]").val();
     var geocoder = new google.maps.Geocoder();
@@ -22,8 +27,8 @@ Bowalum.Views.AddView = Backbone.View.extend({
           beforeSend: function(xhr) {
             xhr.setRequestHeader('X-CSRF-Token', token);
           },
-          type: "POST",
-          url: "/locations.json",
+          type: "PUT",
+          url: "/locations/" + that.model.escape('id') + ".json",
           data: {
             location: {
               year: this.$("input[name=class]").val(),
@@ -61,7 +66,9 @@ Bowalum.Views.AddView = Backbone.View.extend({
   },
   
   render: function() {
-    var renderedContent = this.template();
+    var renderedContent = this.template({
+      loc: this.model
+    });
     this.$el.html(renderedContent);
     return this;
   }

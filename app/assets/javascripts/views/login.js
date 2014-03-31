@@ -22,8 +22,14 @@ Bowalum.Views.LoginView = Backbone.View.extend({
         }
       },
       success: function(data) {
-        Bowalum.currentUser.set(data.user);
-        Backbone.history.navigate("/explore", {trigger: true});
+        console.log(data.success);
+        if (data.success) {
+          Bowalum.currentUser.set(data.user);
+          Backbone.history.navigate("/explore", {trigger: true});
+        }
+        else {
+          window.$("#noticeModal").modal('show');
+        }
         $('meta[name="csrf-token"]').attr('content', data.csrfToken);
       }
     });

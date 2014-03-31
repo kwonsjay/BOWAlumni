@@ -7,7 +7,8 @@ Bowalum.Routers.BowRouter = Backbone.Router.extend({
     "": "root",
     "sign_in": "loginView",
     "explore": "exploreView",
-    "add": "addView"
+    "add": "addView",
+    "alumni/:id": "editView"
   },
   
   root: function() {
@@ -19,10 +20,15 @@ Bowalum.Routers.BowRouter = Backbone.Router.extend({
   },
   
   loginView: function() {
-    var newLoginView = new Bowalum.Views.LoginView();
-    this._switchView(newLoginView, function() {
-      window.$("input")[0].focus();
-    });
+    if (Bowalum.currentUser.get('id')) {
+      Backbone.history.navigate("/explore", {trigger: true})
+    }
+    else {
+      var newLoginView = new Bowalum.Views.LoginView();
+      this._switchView(newLoginView, function() {
+        window.$("input")[0].focus();
+      });
+    }
   },
   
   exploreView: function() {
@@ -37,6 +43,15 @@ Bowalum.Routers.BowRouter = Backbone.Router.extend({
   addView: function() {
     var newAddView = new Bowalum.Views.AddView();
     this._switchView(newAddView, function() {
+      window.$("input")[0].focus();
+    });
+  },
+  
+  editView: function(id) {
+    var newEditView = new Bowalum.Views.EditView({
+      model: Bowalum.locations.get(id)
+    });
+    this._switchView(newEditView, function() {
       window.$("input")[0].focus();
     });
   },

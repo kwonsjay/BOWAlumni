@@ -5,6 +5,15 @@ Bowalum.Views.ExploreView = Backbone.View.extend({
   
   template: JST["global/explore"],
   
+  events: {
+    "click .edit": "editView"
+  },
+  
+  editView: function(event) {
+    var path = "/alumni/" + $(event.currentTarget).data('id');
+    Backbone.history.navigate(path, {trigger: true});
+  },
+  
   render: function() {
     var renderedContent = this.template({
       locations: this.collection
@@ -17,13 +26,14 @@ Bowalum.Views.ExploreView = Backbone.View.extend({
   
   _gMap: function() {
     var stylesArray = [{"featureType":"water","stylers":[{"color":"#46bcec"},{"visibility":"on"}]},{"featureType":"landscape","stylers":[{"color":"#f2f2f2"}]},{"featureType":"road","stylers":[{"saturation":-100},{"lightness":45}]},{"featureType":"road.highway","stylers":[{"visibility":"simplified"}]},{"featureType":"road.arterial","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"administrative","elementType":"labels.text.fill","stylers":[{"color":"#444444"}]},{"featureType":"transit","stylers":[{"visibility":"off"}]},{"featureType":"poi","stylers":[{"visibility":"off"}]}];
-    var USCenter = new google.maps.LatLng(37, -97);
+    // var USCenter = new google.maps.LatLng(37, -97);
+    var worldCenter = new google.maps.LatLng(30, 0);
     // var calCenter = new google.maps.LatLng(37.872, -122.273);
     var mapOptions = {
       // zoom: 11,
       // center: calCenter
-      zoom: 5,
-      center: USCenter,
+      zoom: 3,
+      center: worldCenter,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       styles: stylesArray
     };
@@ -44,6 +54,37 @@ Bowalum.Views.ExploreView = Backbone.View.extend({
         title: loc.get('name'),
         animation: google.maps.Animation.DROP
       });
+      
+      if (Bowalum.currentUser.get('id')) {
+        var header = '<h4 class="name">' + loc.get('name') + '</h4>';
+        var year = '<span class="info btm">Class of ' + loc.get('year') + '</span>';
+        var job = '<span class="info">Occupation: ' + loc.get('job') + '</span>';
+        var major = '<span class="info">Major: ' + loc.get('major') + '</span>';
+        var city = '<span class="info">City: ' + loc.get('city') + '</span>';
+        var description = '<span class="info btm">Description: ' + loc.get('description') + '</span>';
+        var email;
+        if (loc.get('privacy')) {
+          email = '<span class="info">Email: Private</span>';
+        }
+        else {
+          email = '<span class="info">Email: ' + loc.get('email') + '</span>';
+        }
+        var link = '<div class="ctr"><button type="button" data-id="' + loc.get('id') + '" class="btn btn-default edit">Edit</button></div>'
+      
+        var contentString = header + year + job + major + city + description + email + link;
+        var infowindow = new google.maps.InfoWindow({
+          content: contentString
+        });
+    
+        google.maps.event.addListener(marker, 'click', function() {
+          infowindow.open(map, marker);
+        });
+      }
+      else {
+        google.maps.event.addListener(marker, 'click', function() {
+          window.$("#noticeModal").modal('show');
+        });
+      }
     });
     
     // HEATMAP

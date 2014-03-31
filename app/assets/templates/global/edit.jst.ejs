@@ -3,10 +3,10 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h4 class="modal-title">Geocoding Failed!</h4>
+        <h4 class="modal-title">Update Failed!</h4>
       </div>
       <div class="modal-body">
-        <p>Alumnus was not added.</p>
+        <p>Alumnus was not updated.</p>
         <p>Please ensure that the fields are complete.</p>
       </div>
       <div class="modal-footer">
@@ -20,33 +20,33 @@
   
   <form class="form-horizontal padtop" role="form" id="form">
     <fieldset>
-      <legend>Add Alumnus</legend>
+      <legend>Update Alumnus</legend>
       
       <div class="form-group">
         <label for="inputName1" class="col-sm-2 control-label">Name</label>
         <div class="col-sm-10">
-          <input type="text" name="name" class="form-control" id="inputName1" placeholder="BOW Alumni">
+          <input type="text" name="name" class="form-control" id="inputName1" placeholder="BOW Alumni" value="<%= loc.get('name') %>">
         </div>
       </div>
       
       <div class="form-group">
         <label for="inputClass1" class="col-sm-2 control-label">Class</label>
         <div class="col-sm-10">
-          <input type="text" name="class" class="form-control" id="inputClass1" placeholder="2014">
+          <input type="text" name="class" class="form-control" id="inputClass1" placeholder="2014" value="<%= loc.get('year') %>">
         </div>
       </div>
       
       <div class="form-group">
         <label for="inputMajor1" class="col-sm-2 control-label">Major</label>
         <div class="col-sm-10">
-          <input type="text" name="major" class="form-control" id="inputMajor1" placeholder="Neuroscience">
+          <input type="text" name="major" class="form-control" id="inputMajor1" placeholder="Neuroscience" value="<%= loc.get('major') %>">
         </div>
       </div>
       
       <div class="form-group">
         <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
         <div class="col-sm-10">
-          <input type="email" name="email" class="form-control" id="inputEmail3" placeholder="Email@example.com">
+          <input type="email" name="email" class="form-control" id="inputEmail3" placeholder="Email@example.com" value="<%= loc.get('email') %>">
         </div>
       </div>
       
@@ -54,7 +54,9 @@
         <div class="col-sm-offset-2 col-sm-10">
           <div class="checkbox">
             <label>
-              <input type="checkbox" name="private"> Hide my email
+              <input type="checkbox" name="private" <% if (loc.get('privacy')){ %>
+			<%= "checked" %>
+			<% } %>> Hide my email
             </label>
           </div>
         </div>
@@ -63,41 +65,41 @@
       <div class="form-group">
         <label for="inputCity1" class="col-sm-2 control-label">City</label>
         <div class="col-sm-10">
-          <input type="text" name="city" class="form-control" id="inputCity1" placeholder="San Francisco">
+          <input type="text" name="city" class="form-control" id="inputCity1" placeholder="San Francisco" value="<%= loc.get('city') %>">
         </div>
       </div>
       
       <div class="form-group">
         <label for="inputState1" class="col-sm-2 control-label">State</label>
         <div class="col-sm-10">
-          <input type="text" name="state" class="form-control" id="inputState1" placeholder="CA (Leave blank if not US)">
+          <input type="text" name="state" class="form-control" id="inputState1" placeholder="CA (Leave blank if not US)" value="<%= loc.get('state') %>">
         </div>
       </div>
       
       <div class="form-group">
         <label for="inputCountry1" class="col-sm-2 control-label">Country</label>
         <div class="col-sm-10">
-          <input type="text" name="country" class="form-control" id="inputCountry1" placeholder="USA">
+          <input type="text" name="country" class="form-control" id="inputCountry1" placeholder="USA" value="<%= loc.get('country') %>">
         </div>
       </div>
       
       <div class="form-group">
         <label for="inputJob1" class="col-sm-2 control-label">Occupation</label>
         <div class="col-sm-10">
-          <input type="text" name="job" class="form-control" id="inputJob1" placeholder="Research Assistant">
+          <input type="text" name="job" class="form-control" id="inputJob1" placeholder="Research Assistant" value="<%= loc.get('job') %>">
         </div>
       </div>
       
       <div class="form-group">
         <label for="inputDesc1" class="col-sm-2 control-label">Description</label>
         <div class="col-sm-10">
-          <textarea name="description" rows="3" class="form-control" id="inputDesc1" placeholder="What you're doing, future plans, etc."></textarea>
+          <textarea name="description" rows="3" class="form-control" id="inputDesc1" placeholder="What you're doing, future plans, etc." value="<%= loc.get('description') %>"></textarea>
         </div>
       </div>
 
       <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-          <button type="submit" name="edit" class="btn btn-default">Update</button>
+          <button type="submit" name="update" class="btn btn-default">Update</button>
         </div>
       </div>
     </fieldset>

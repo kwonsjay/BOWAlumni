@@ -24,7 +24,8 @@ class SessionsController < Devise::SessionsController
     scope = Devise::Mapping.find_scope!(resource_or_scope)
     resource ||= resource_or_scope
     sign_in(scope, resource) unless warden.user(scope) == resource
-    return render :json => {
+    render :json => {
+      :success => true,
       :user => current_user,
       :csrfParam => request_forgery_protection_token,
       :csrfToken => form_authenticity_token
@@ -32,7 +33,7 @@ class SessionsController < Devise::SessionsController
   end
   
   def failure
-    return render :json => {:success => false, :errors => ["Login failed."]}
+    render :json => {:success => false, :errors => ["Login failed."]}
   end
   
 end
