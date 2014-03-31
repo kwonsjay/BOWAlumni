@@ -10,9 +10,9 @@
         <a class="navbar-brand brandtext">Cplaplcs</a>
     </div>
     <div class="navbar-collapse collapse">
-      <% if (!Cplaplcs.currentUser.get("id")) { %>
+      <% if (!Bowalum.currentUser.get("id")) { %>
         <!-- <a class="btn btn-success navbar-btn navbar-right" role="button" href="/users/sign_in">Log In</a> -->
-        <button type="button" class="btn btn-success navbar-btn navbar-right signin">Log In</button>
+        <button type="button" class="btn btn-danger navbar-btn navbar-right signin">Admin</button>
       <% } else { %>
         <button type="button" class="btn btn-danger navbar-btn navbar-right signout">Log Out</button>
       <% } %>
