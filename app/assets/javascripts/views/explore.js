@@ -1,6 +1,6 @@
 Bowalum.Views.ExploreView = Backbone.View.extend({
   initialize: function() {
-    // console.log(this.collection);
+    this.listenTo(this.collection, "add change remove reset", this.render);
   },
   
   template: JST["global/explore"],

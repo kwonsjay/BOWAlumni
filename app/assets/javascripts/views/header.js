@@ -5,6 +5,7 @@ Bowalum.Views.HeaderView = Backbone.View.extend({
   events: {
     "click .signout": "logoutUser",
     "click .signin": "loginUser",
+    "click .add": "addLocation",
     "click .brandtext": "root"
   },
   
@@ -22,7 +23,7 @@ Bowalum.Views.HeaderView = Backbone.View.extend({
       type: "DELETE",
       url: "/users/sign_out",
       success: function(data) {
-        Cplaplcs.currentUser.clear();
+        Bowalum.currentUser.clear();
         Backbone.history.navigate("/", {trigger: true});
         $('meta[name="csrf-token"]').attr('content', data.csrfToken);
       },
@@ -30,6 +31,10 @@ Bowalum.Views.HeaderView = Backbone.View.extend({
         alert(xhr.responseText);
       }
     });
+  },
+  
+  addLocation: function() {
+    Backbone.history.navigate("/add", {trigger: true});
   },
   
   root: function() {

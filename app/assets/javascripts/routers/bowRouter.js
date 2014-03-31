@@ -6,7 +6,8 @@ Bowalum.Routers.BowRouter = Backbone.Router.extend({
   routes: {
     "": "root",
     "sign_in": "loginView",
-    "explore": "exploreView"
+    "explore": "exploreView",
+    "add": "addView"
   },
   
   root: function() {
@@ -19,7 +20,9 @@ Bowalum.Routers.BowRouter = Backbone.Router.extend({
   
   loginView: function() {
     var newLoginView = new Bowalum.Views.LoginView();
-    this._switchView(newLoginView);
+    this._switchView(newLoginView, function() {
+      window.$("input")[0].focus();
+    });
   },
   
   exploreView: function() {
@@ -28,6 +31,13 @@ Bowalum.Routers.BowRouter = Backbone.Router.extend({
     });
     this._switchView(newExploreView, function() {
       newExploreView._gMap.bind(newExploreView)();
+    });
+  },
+  
+  addView: function() {
+    var newAddView = new Bowalum.Views.AddView();
+    this._switchView(newAddView, function() {
+      window.$("input")[0].focus();
     });
   },
   

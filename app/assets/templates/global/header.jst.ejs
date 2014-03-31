@@ -7,14 +7,21 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-        <a class="navbar-brand brandtext">Cplaplcs</a>
+        <a class="navbar-brand brandtext">BOW Alumni</a>
     </div>
     <div class="navbar-collapse collapse">
       <% if (!Bowalum.currentUser.get("id")) { %>
         <!-- <a class="btn btn-success navbar-btn navbar-right" role="button" href="/users/sign_in">Log In</a> -->
         <button type="button" class="btn btn-danger navbar-btn navbar-right signin">Admin</button>
       <% } else { %>
-        <button type="button" class="btn btn-danger navbar-btn navbar-right signout">Log Out</button>
+        <div class="btn-toolbar navbar-right" role="toolbar">
+          <div class="btn-group">
+            <button type="button" class="btn btn-primary navbar-btn add">Add</button>
+          </div>
+          <div class="btn-group">
+            <button type="button" class="btn btn-danger navbar-btn signout">Log Out</button>
+          </div>
+        </div>
       <% } %>
     </div><!--/.navbar-collapse -->
   </div>

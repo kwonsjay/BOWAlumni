@@ -7,7 +7,6 @@ Bowalum.Views.LoginView = Backbone.View.extend({
   
   submitUser: function(event) {
     event.preventDefault();
-    var that = this;
     var token = $('meta[name="csrf-token"]').attr('content');
     $.ajax({
       beforeSend: function(xhr) {
